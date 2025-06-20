@@ -5,7 +5,7 @@ class MyRunnable implements Runnable {
 
         for(int i = 1; i <= 5; i++) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(500);
 
                 System.out.println(i);
             } catch(InterruptedException e) {
@@ -17,10 +17,7 @@ class MyRunnable implements Runnable {
 
 public class Main {
     public static void main(String[] args) {
-        Thread thread = new Thread(new MyRunnable());
-
-        thread.setName("고장없이 잘 돌아가는 최슨 쓰레드");
-
+        Thread thread = new Thread(new MyRunnable(),"CountThread");
 
         thread.start();
 
