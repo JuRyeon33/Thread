@@ -1,7 +1,7 @@
 class Counter {
     private int count = 0;
 
-    public void increment() {
+    public synchronized void increment() {
         count++;
     }
 
@@ -11,11 +11,11 @@ class Counter {
 }
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Counter counter = new Counter();
 
         Runnable task = () -> {
-            for(int i = 0; i < 1000; i++) {
+            for(int i = 0; i < 10000; i++) {
                 counter.increment();
             }
         };
@@ -24,6 +24,9 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             threads[i] = new Thread(task);
             threads[i].start();
+        }
+        for(Thread t: threads) {
+            t.join();
         }
 
         System.out.println("Final count: " + counter.getCount());
